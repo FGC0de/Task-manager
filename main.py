@@ -55,6 +55,23 @@ def remover_tarefa():
     except ValueError:
         print("Digite um número válido.")
 
+def buscar_tarefa():
+    termo = input("Digite o termo para buscar: ").lower()
+
+    resultados = [
+        tarefa for tarefa in tarefas
+        if termo in tarefa["nome"].lower()
+    ]
+
+    if not resultados:
+        print("Nenhuma tarefa encontrada.")
+        return
+
+    print("\n--- Resultados ---")
+
+    for i, tarefa in enumerate(resultados, start=1):
+        status = "X" if tarefa["concluida"] else " "
+        print(f"{i}. [{status}] {tarefa['nome']}")
 
 def menu():
     while True:
@@ -63,7 +80,8 @@ def menu():
         print("2. Listar tarefas")
         print("3. Concluir tarefa")
         print("4. Remover tarefa")
-        print("5. Sair")
+        print("5. Buscar tarefa")
+        print("6. Sair")
 
         opcao = input("Escolha uma opção: ")
 
@@ -76,6 +94,8 @@ def menu():
         elif opcao == "4":
             remover_tarefa()
         elif opcao == "5":
+            buscar_tarefa()
+        elif opcao == "6":
             print("Programa encerrado.")
             break
         else:
@@ -84,3 +104,4 @@ def menu():
 
 if __name__ == "__main__":
     menu()
+
